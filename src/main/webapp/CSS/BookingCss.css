@@ -1,0 +1,279 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+
+    width:100%;
+    background:#0d47a1;
+    color:#fff;
+    text-align:center;
+    padding:18px;
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:1px;
+
+}
+
+/* ================= MAIN ================= */
+
+.container{
+
+    display:flex;
+    gap:20px;
+    padding:20px;
+    height:calc(100vh - 80px);
+
+}
+
+/* ================= LEFT PANEL ================= */
+
+.left-panel{
+
+    width:60%;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+    padding:15px;
+    overflow-y:auto;
+
+}
+
+/* ================= RIGHT PANEL ================= */
+
+.right-panel{
+
+    width:40%;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+    padding:20px;
+
+}
+
+/* ================= PANEL TITLE ================= */
+
+.panel-title{
+
+    text-align:center;
+    margin-bottom:20px;
+    color:#0d47a1;
+    font-size:22px;
+
+}
+
+/* ================= TABLE ================= */
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+table th{
+
+    background:#0d47a1;
+    color:white;
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:center;
+
+}
+
+table td{
+
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:center;
+    font-size:14px;
+
+}
+
+table tr:nth-child(even){
+
+    background:#f7f7f7;
+
+}
+
+table tr:hover{
+
+    background:#eaf3ff;
+
+}
+
+/* ================= FORM ================= */
+
+.form-group{
+
+    margin-bottom:12px;
+
+}
+
+.form-group label{
+
+    display:block;
+    font-weight:bold;
+    margin-bottom:5px;
+    color:#333;
+
+}
+
+.form-group input,
+.form-group select{
+
+    width:100%;
+    padding:9px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:14px;
+
+}
+
+.form-group input:focus,
+.form-group select:focus{
+
+    border-color:#0d47a1;
+    outline:none;
+
+}
+
+/* ================= BUTTONS ================= */
+
+.button-group{
+
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+
+}
+
+.add-btn{
+
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:15px;
+
+}
+
+.add-btn:hover{
+
+    background:#218838;
+
+}
+
+.clear-btn{
+
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:15px;
+
+}
+
+.clear-btn:hover{
+
+    background:#c82333;
+
+}
+
+/* ================= ACTION BUTTONS ================= */
+
+.action-btn{
+
+    border:none;
+    padding:6px 10px;
+    border-radius:4px;
+    cursor:pointer;
+    color:white;
+    font-size:13px;
+
+}
+
+.update-btn{
+
+    background:#ff9800;
+
+}
+
+.update-btn:hover{
+
+    background:#f57c00;
+
+}
+
+.delete-btn{
+
+    background:#d32f2f;
+
+}
+
+.delete-btn:hover{
+
+    background:#b71c1c;
+
+}
+
+/* ================= SCROLL BAR ================= */
+
+.left-panel::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.left-panel::-webkit-scrollbar-thumb{
+
+    background:#0d47a1;
+    border-radius:10px;
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+
+.container{
+
+    flex-direction:column;
+    height:auto;
+
+}
+
+.left-panel,
+.right-panel{
+
+    width:100%;
+
+}
+
+table{
+
+    font-size:12px;
+
+}
+
+.header{
+
+    font-size:22px;
+
+}
+
+}

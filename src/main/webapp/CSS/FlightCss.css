@@ -1,0 +1,341 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+
+body{
+    background:#eef3f8;
+    overflow:hidden;
+}
+
+/*================ HEADER =================*/
+
+.header{
+
+    width:100%;
+    height:60px;
+
+    background:#1565C0;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.25);
+
+}
+
+/*================ MAIN =================*/
+
+.container{
+
+    display:flex;
+
+    gap:18px;
+
+    padding:15px;
+
+    height:calc(100vh - 60px);
+
+}
+
+/*================ LEFT =================*/
+
+.left-panel{
+
+    width:70%;
+
+    background:white;
+
+    border-radius:10px;
+
+    padding:18px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+
+    overflow-y:auto;
+
+}
+
+/*================ RIGHT =================*/
+
+.right-panel{
+
+    width:30%;
+
+    background:white;
+
+    border-radius:10px;
+
+    padding:18px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+
+}
+
+/*================ TITLES =================*/
+
+.panel-title{
+
+    color:#1565C0;
+
+    font-size:26px;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
+
+    border-bottom:3px solid #1565C0;
+
+    padding-bottom:8px;
+
+}
+
+/*================ TABLE =================*/
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+thead{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+th{
+
+    background:#1565C0;
+
+    color:white;
+
+    padding:12px;
+
+    font-size:15px;
+
+}
+
+td{
+
+    padding:12px;
+
+    text-align:center;
+
+    border-bottom:1px solid #ddd;
+
+    font-size:15px;
+
+}
+
+tr:nth-child(even){
+
+    background:#f8f9fa;
+
+}
+
+tr:hover{
+
+    background:#e3f2fd;
+
+}
+
+/*================ FORM =================*/
+
+.form-group{
+
+    display:flex;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+.form-group label{
+
+    width:38%;
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.form-group input{
+
+    width:62%;
+
+    height:36px;
+
+    border:1px solid #ccc;
+
+    border-radius:6px;
+
+    padding-left:10px;
+
+    font-size:14px;
+
+}
+
+.form-group select{
+
+    width:62%;
+
+    height:36px;
+
+    border:1px solid #ccc;
+
+    border-radius:6px;
+
+    padding-left:8px;
+
+    font-size:14px;
+
+}
+
+.form-group input:focus,
+.form-group select:focus{
+
+    outline:none;
+
+    border:2px solid #1565C0;
+
+}
+
+/*================ BUTTONS =================*/
+
+.button-group{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+.add-btn{
+
+    width:48%;
+
+    height:40px;
+
+    background:#2E7D32;
+
+    color:white;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+}
+
+.clear-btn{
+
+    width:48%;
+
+    height:40px;
+
+    background:#757575;
+
+    color:white;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+}
+
+.update-btn{
+
+    background:#FFC107;
+
+    color:black;
+
+    border:none;
+
+    padding:8px 15px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+.delete-btn{
+
+    background:#E53935;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 15px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+/*================ BUTTON HOVER =================*/
+
+.add-btn:hover{
+
+    background:#1B5E20;
+
+}
+
+.clear-btn:hover{
+
+    background:#424242;
+
+}
+
+.update-btn:hover{
+
+    background:#FFB300;
+
+}
+
+.delete-btn:hover{
+
+    background:#C62828;
+
+}

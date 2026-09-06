@@ -1,0 +1,949 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Passenger Dashboard</title>
+
+    <link rel="stylesheet" href="../CSS/PassengerDashboard.css">
+
+    <script src="../JS/PassengerDashboard.js" defer></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     MAIN DASHBOARD CONTAINER
+===================================================== -->
+
+<div class="dashboard-container">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                ✈
+            </div>
+
+            <div class="logo-text">
+
+                <strong>AI Airport</strong>
+
+                <span>Passenger Portal</span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MENU -->
+
+        <nav class="sidebar-menu">
+
+
+            <a href="#" class="menu-item active">
+
+                <span>🏠</span>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="#flightSection" class="menu-item">
+
+                <span>🎫</span>
+
+                <span>My Ticket</span>
+
+            </a>
+
+
+            <a href="#flightSection" class="menu-item">
+
+                <span>✈️</span>
+
+                <span>Flight Details</span>
+
+            </a>
+
+
+            <a href="#delaySection" class="menu-item">
+
+                <span>🕐</span>
+
+                <span>Delay Prediction</span>
+
+            </a>
+
+
+            <a href="#chatSection" class="menu-item">
+
+                <span>🤖</span>
+
+                <span>AI Assistant</span>
+
+            </a>
+
+
+            <a href="#" class="menu-item">
+
+                <span>🔔</span>
+
+                <span>Notifications</span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="menu-item logout">
+
+                <span>🚪</span>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="top-header">
+
+
+            <div class="header-title">
+
+                <h1>Passenger Dashboard</h1>
+
+                <p>Manage your journey with AI assistance</p>
+
+            </div>
+
+
+
+            <div class="header-right">
+
+
+                <!-- NOTIFICATION -->
+
+                <button
+                    type="button"
+                    class="notification-btn">
+
+                    🔔
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+
+                <!-- PASSENGER PROFILE -->
+
+                <div class="passenger-profile">
+
+
+                    <div class="profile-icon">
+
+                        👤
+
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <span>Welcome,</span>
+
+                        <strong id="passengerName">
+
+                            Passenger
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD CONTENT
+        ================================================== -->
+
+        <div class="dashboard-content">
+
+
+
+            <!-- =================================================
+                 FLIGHT SECTION
+            ================================================== -->
+
+            <section
+                class="flight-section"
+                id="flightSection">
+
+
+                <!-- SECTION HEADER -->
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <h2>✈ My Upcoming Flight</h2>
+
+                        <p>
+                            Your current flight and boarding information
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        class="flight-status-badge"
+                        id="flightStatusBadge">
+
+                        Loading...
+
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FLIGHT ROUTE
+                ================================================== -->
+
+                <div class="flight-route-card">
+
+
+                    <!-- SOURCE -->
+
+                    <div class="airport">
+
+
+                        <span class="airport-label">
+                            FROM
+                        </span>
+
+
+                        <h2 id="sourceText">
+                            ---
+                        </h2>
+
+
+                        <p id="departure">
+                            --
+                        </p>
+
+
+                    </div>
+
+
+
+                    <!-- FLIGHT CENTER -->
+
+                    <div class="flight-middle">
+
+
+                        <div class="flight-number">
+
+                            ✈
+
+                            <strong id="flightNumber">
+                                ---
+                            </strong>
+
+                        </div>
+
+
+                        <div class="flight-line">
+
+                            <span class="line-dot"></span>
+
+                            <span class="line"></span>
+
+                            <span class="plane-icon">
+                                ✈
+                            </span>
+
+                            <span class="line"></span>
+
+                            <span class="line-dot"></span>
+
+                        </div>
+
+
+                        <p id="airlineText">
+                            ---
+                        </p>
+
+
+                    </div>
+
+
+
+                    <!-- DESTINATION -->
+
+                    <div class="airport">
+
+
+                        <span class="airport-label">
+                            TO
+                        </span>
+
+
+                        <h2 id="destinationText">
+                            ---
+                        </h2>
+
+
+                        <p id="arrival">
+                            --
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FLIGHT INFORMATION
+                ================================================== -->
+
+                <div class="flight-info-grid">
+
+
+                    <!-- BOOKING ID -->
+
+                    <div class="info-box">
+
+                        <div class="info-icon">
+                            🎫
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Booking ID
+                            </span>
+
+                            <strong id="bookingId">
+                                ---
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PASSENGER -->
+
+                    <div class="info-box">
+
+                        <div class="info-icon">
+                            👤
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Passenger
+                            </span>
+
+                            <strong id="name">
+                                ---
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SEAT -->
+
+                    <div class="info-box">
+
+                        <div class="info-icon">
+                            💺
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Seat Number
+                            </span>
+
+                            <strong id="seat">
+                                ---
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TERMINAL -->
+
+                    <div class="info-box">
+
+                        <div class="info-icon">
+                            🏢
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Terminal
+                            </span>
+
+                            <strong id="terminal">
+                                ---
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- GATE -->
+
+                    <div class="info-box gate-box">
+
+                        <div class="info-icon">
+                            🚪
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Boarding Gate
+                            </span>
+
+                            <strong id="gateNumber">
+                                ---
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BOOKING STATUS -->
+
+                    <div class="info-box">
+
+                        <div class="info-icon">
+                            ✅
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Booking Status
+                            </span>
+
+                            <strong id="status">
+                                ---
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 AI DELAY PREDICTION SECTION
+            ================================================== -->
+
+            <section
+                class="delay-section"
+                id="delaySection">
+
+
+                <!-- SECTION HEADER -->
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            🤖 AI Flight Delay Prediction
+                        </h2>
+
+                        <p>
+                            Predict the possibility of a flight delay using AI
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DELAY CARD -->
+
+                <div class="delay-card">
+
+
+                    <!-- INPUT PANEL -->
+
+                    <div class="delay-input-panel">
+
+
+                        <div class="prediction-icon">
+                            🤖
+                        </div>
+
+
+                        <h3>
+                            Check Flight Delay
+                        </h3>
+
+
+                        <p class="prediction-description">
+
+                            Enter the current flight conditions
+                            to predict whether your flight may be delayed.
+
+                        </p>
+
+
+
+                        <!-- WEATHER -->
+
+                        <div class="form-group">
+
+                            <label for="weather">
+
+                                🌤 Weather Condition
+
+                            </label>
+
+
+                            <select id="weather">
+
+                                <option value="Clear">
+                                    Clear
+                                </option>
+
+                                <option value="Cloudy">
+                                    Cloudy
+                                </option>
+
+                                <option value="Rainy">
+                                    Rainy
+                                </option>
+
+                                <option value="Foggy">
+                                    Foggy
+                                </option>
+
+                                <option value="Stormy">
+                                    Stormy
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- HOLIDAY -->
+
+                        <div class="form-group">
+
+                            <label for="holiday">
+
+                                📅 Holiday
+
+                            </label>
+
+
+                            <select id="holiday">
+
+                                <option value="No">
+                                    No
+                                </option>
+
+                                <option value="Yes">
+                                    Yes
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- PREVIOUS DELAY -->
+
+                        <div class="form-group">
+
+                            <label for="previousDelay">
+
+                                🕐 Previous Delay (Minutes)
+
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="previousDelay"
+                                value="0"
+                                min="0"
+                                placeholder="Enter previous delay">
+
+
+                        </div>
+
+
+
+                        <!-- PREDICT BUTTON -->
+
+                        <button
+                            type="button"
+                            id="predictDelayBtn"
+                            class="predict-button">
+
+                            🤖 Predict Flight Delay
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- RESULT PANEL -->
+
+                    <div class="prediction-result-panel">
+
+
+                        <div class="result-icon">
+                            ✈️
+                        </div>
+
+
+                        <h3>
+                            Prediction Result
+                        </h3>
+
+
+                        <div class="prediction-display">
+
+                            <h2 id="prediction">
+
+                                Click Predict Flight Delay
+
+                            </h2>
+
+                        </div>
+
+
+                        <div class="confidence-display">
+
+
+                            <span>
+                                AI Confidence
+                            </span>
+
+
+                            <strong id="confidence">
+                                --
+                            </strong>
+
+
+                        </div>
+
+
+                        <div class="prediction-note">
+
+                            <span>ℹ️</span>
+
+                            <p>
+
+                                This prediction is generated using
+                                the AI flight delay prediction model.
+
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     FLOATING AI CHAT BUTTON
+===================================================== -->
+
+<button
+    type="button"
+    class="chat-icon"
+    id="chatIcon"
+    title="Open AI Airport Assistant">
+
+    💬
+
+</button>
+
+
+
+<!-- =====================================================
+     AI CHAT POPUP
+===================================================== -->
+
+<div
+    class="chat-popup"
+    id="chatPopup">
+
+
+    <!-- CHAT HEADER -->
+
+    <div class="chat-header">
+
+
+        <div class="chat-header-info">
+
+
+            <div class="chat-avatar">
+                🤖
+            </div>
+
+
+            <div>
+
+                <h3>
+                    AI Airport Assistant
+                </h3>
+
+                <span>
+                    ● Online
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            type="button"
+            class="close-chat"
+            id="closeChat">
+
+            ×
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- CHAT MESSAGES -->
+
+    <div
+        id="chatMessages"
+        class="chat-messages">
+
+
+        <div class="bot-message">
+
+
+            <div class="message-avatar">
+                🤖
+            </div>
+
+
+            <div class="message-content">
+
+                <p>
+                    Hello 👋
+                </p>
+
+                <p>
+                    I am your AI Airport Assistant.
+                </p>
+
+                <p>
+                    Ask me about:
+                </p>
+
+                <ul>
+
+                    <li>🎫 Your ticket</li>
+
+                    <li>🚪 Boarding gate</li>
+
+                    <li>💺 Seat number</li>
+
+                    <li>🕐 Boarding time</li>
+
+                    <li>✈️ Flight status</li>
+
+                    <li>🤖 Flight delay</li>
+
+                </ul>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- CHAT INPUT -->
+
+    <div class="chat-input-area">
+
+
+        <input
+            type="text"
+            id="userQuestion"
+            placeholder="Ask about your flight..."
+            autocomplete="off">
+
+
+        <button
+            type="button"
+            id="sendChatBtn"
+            title="Send Message">
+
+            ➤
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     HIDDEN VALUES
+     
+     USED BY JAVASCRIPT
+===================================================== -->
+
+<input
+    type="hidden"
+    id="airline">
+
+
+<input
+    type="hidden"
+    id="source">
+
+
+<input
+    type="hidden"
+    id="destination">
+
+
+<input
+    type="hidden"
+    id="departureHour">
+
+
+<input
+    type="hidden"
+    id="flightNumberHidden">
+
+
+<input
+    type="hidden"
+    id="passengerIdHidden">
+
+
+
+</body>
+
+</html>
+

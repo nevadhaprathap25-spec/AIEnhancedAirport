@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Passenger Management</title>
+
+<link rel="stylesheet" href="../CSS/PassengerCss.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+👨‍✈️ Passenger Management System
+
+</div>
+
+<div class="container">
+
+<!-- ================= LEFT PANEL ================= -->
+
+<div class="left-panel">
+
+<h2 class="panel-title">
+
+Passenger List
+
+</h2>
+
+<table id="passengerTable">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Passport</th>
+
+<th>Flight</th>
+
+<th>Seat</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="passengerTableBody">
+
+<!-- Passenger Records -->
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- ================= RIGHT PANEL ================= -->
+
+<div class="right-panel">
+
+<h2 class="panel-title">
+
+Add Passenger
+
+</h2>
+
+<form id="passengerForm"
+      action="/AIEnhancedAirport/PassengerServlet"
+      method="post">
+
+<input type="hidden"
+       id="passengerId"
+       name="passengerId">
+
+<div class="form-group">
+
+<label>First Name</label>
+
+<input type="text"
+       id="firstName"
+       name="firstName"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Last Name</label>
+
+<input type="text"
+       id="lastName"
+       name="lastName"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Gender</label>
+
+<select id="gender"
+        name="gender">
+
+<option value="Male">Male</option>
+
+<option value="Female">Female</option>
+
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Passport No</label>
+
+<input type="text"
+       id="passportNo"
+       name="passportNo"
+       required>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>Phone</label>
+
+<input type="text"
+       id="phone"
+       name="phone"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email"
+       id="email"
+       name="email"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Address</label>
+
+<input type="text"
+       id="address"
+       name="address"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Flight ID</label>
+
+<input type="number"
+       id="flightId"
+       name="flightId"
+       required>
+</div>
+
+<div class="form-group">
+
+<label>Seat No</label>
+
+<input type="text"
+       id="seatNo"
+       name="seatNo"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Travel Class</label>
+
+<select id="travelClass"
+        name="travelClass">
+
+<option value="Economy">Economy</option>
+
+<option value="Business">Business</option>
+
+<option value="First Class">First Class</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Ticket No</label>
+
+<input type="text"
+       id="ticketNo"
+       name="ticketNo"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Booking Date</label>
+
+<input type="date"
+       id="bookingDate"
+       name="bookingDate"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Journey Date</label>
+
+<input type="date"
+       id="journeyDate"
+       name="journeyDate"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Status</label>
+
+<select id="status"
+        name="status">
+
+<option value="Confirmed">Confirmed</option>
+
+<option value="Waiting">Waiting</option>
+
+<option value="Cancelled">Cancelled</option>
+
+</select>
+
+</div>
+
+<div class="button-group">
+
+<button type="submit"
+        id="submitBtn"
+        class="add-btn"
+        name="action"
+        value="add">
+
+Add Passenger
+
+</button>
+
+<button type="button"
+        class="clear-btn"
+        onclick="clearForm()">
+
+Clear
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+window.onload = function () {
+
+    loadPassengers();
+
+};
+function loadPassengers(){
+
+fetch("/AIEnhancedAirport/PassengerServlet?action=list")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+let table=document.getElementById("passengerTableBody");
+
+table.innerHTML="";
+
+data.forEach(function(passenger){
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${passenger.passengerId}</td>
+
+<td>${passenger.firstName} ${passenger.lastName}</td>
+
+<td>${passenger.passportNo}</td>
+
+<td>${passenger.flightId}</td>
+
+<td>${passenger.seatNo}</td>
+
+<td>
+
+<button
+class="action-btn update-btn"
+onclick="editPassenger(${passenger.passengerId})">
+
+Update
+
+</button>
+
+&nbsp;
+
+<button
+class="action-btn delete-btn"
+onclick="deletePassenger(${passenger.passengerId})">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+})
+
+.catch(error=>{
+
+console.log(error);
+
+});
+
+}
+
+function editPassenger(id){
+
+fetch("/AIEnhancedAirport/PassengerServlet?action=get&id="+id)
+
+.then(response=>response.json())
+
+.then(passenger=>{
+	
+	console.log(passenger);
+
+	document.getElementById("passengerId").value = passenger.passengerId;
+	document.getElementById("firstName").value = passenger.firstName;
+	document.getElementById("lastName").value = passenger.lastName;
+	document.getElementById("gender").value = passenger.gender;
+	document.getElementById("passportNo").value = passenger.passportNo;
+	document.getElementById("phone").value = passenger.phone;
+	document.getElementById("email").value = passenger.email;
+	document.getElementById("address").value = passenger.address;
+	document.getElementById("flightId").value = passenger.flightId;
+	document.getElementById("seatNo").value = passenger.seatNo;
+	document.getElementById("travelClass").value = passenger.travelClass;
+	document.getElementById("ticketNo").value = passenger.ticketNo;
+	document.getElementById("bookingDate").value = passenger.bookingDate;
+	document.getElementById("journeyDate").value = passenger.journeyDate;
+	document.getElementById("status").value = passenger.status;
+
+document.getElementById("submitBtn").innerHTML="Update Passenger";
+document.getElementById("submitBtn").value="update";
+
+});
+
+}
+
+function deletePassenger(id){
+
+if(confirm("Are you sure you want to delete this passenger?")){
+
+fetch("/AIEnhancedAirport/PassengerServlet?action=delete&id="+id)
+
+.then(response=>response.text())
+
+.then(msg=>{
+
+alert(msg);
+
+loadPassengers();
+
+});
+
+}
+
+}
+
+function clearForm(){
+
+document.getElementById("passengerId").value="";
+document.getElementById("firstName").value="";
+document.getElementById("lastName").value="";
+document.getElementById("gender").selectedIndex=0;
+document.getElementById("passportNo").value="";
+document.getElementById("phone").value="";
+document.getElementById("email").value="";
+document.getElementById("address").value="";
+document.getElementById("flightId").value="";
+document.getElementById("seatNo").value="";
+document.getElementById("travelClass").selectedIndex=0;
+document.getElementById("ticketNo").value="";
+document.getElementById("bookingDate").value="";
+document.getElementById("journeyDate").value="";
+document.getElementById("status").selectedIndex=0;
+
+document.getElementById("submitBtn").innerHTML="Add Passenger";
+document.getElementById("submitBtn").value="add";
+
+document.getElementById("passengerForm").reset();
+
+}
+
+window.onload = function () {
+
+loadPassengers();
+
+const params = new URLSearchParams(window.location.search);
+
+const msg = params.get("msg");
+
+if(msg=="added"){
+alert("Passenger Added Successfully.");
+}
+
+if(msg=="updated"){
+alert("Passenger Updated Successfully.");
+}
+
+if(msg=="deleted"){
+alert("Passenger Deleted Successfully.");
+}
+
+history.replaceState({}, document.title, window.location.pathname);
+
+};
+
+</script>
+
+</body>
+
+</html>

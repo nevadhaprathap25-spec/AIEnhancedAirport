@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flight Management</title>
+
+<link rel="stylesheet" href="../CSS/FlightCss.css">
+
+
+</head>
+
+<body>
+
+<div class="header">
+
+✈ Flight Management System
+
+</div>
+
+<div class="container">
+
+<!-- ================= LEFT PANEL ================= -->
+
+<div class="left-panel">
+
+<h2 class="panel-title">
+
+Flight List
+
+</h2>
+
+<table id="flightTable">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Flight</th>
+
+<th>Airline</th>
+
+<th>Source</th>
+
+<th>Destination</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="flightTableBody">
+
+<!-- Flight records will be loaded here -->
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- ================= RIGHT PANEL ================= -->
+
+<div class="right-panel">
+
+<h2 class="panel-title">
+
+Add Flight
+
+</h2>
+
+<form id="flightForm"
+      action="/AIEnhancedAirport/FlightServlet"
+      method="post">
+
+<input type="hidden"
+       id="flightId"
+       name="flightId">
+
+<div class="form-group">
+
+<label>Flight Number</label>
+
+<input type="text"
+       id="flightNumber"
+       name="flightNumber"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Airline</label>
+
+<input type="text"
+       id="airline"
+       name="airline"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Source</label>
+
+<input type="text"
+       id="source"
+       name="source"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Destination</label>
+
+<input type="text"
+       id="destination"
+       name="destination"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Departure Time</label>
+
+<input type="datetime-local"
+       id="departureTime"
+       name="departureTime"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Arrival Time</label>
+
+<input type="datetime-local"
+       id="arrivalTime"
+       name="arrivalTime"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Total Seats</label>
+
+<input type="number"
+       id="totalSeats"
+       name="totalSeats"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Available Seats</label>
+
+<input type="number"
+       id="availableSeats"
+       name="availableSeats"
+       required>
+
+</div>
+
+<div class="form-group">
+
+<label>Status</label>
+
+<select id="status"
+        name="status">
+
+<option value="On Time">On Time</option>
+
+<option value="Delayed">Delayed</option>
+
+<option value="Cancelled">Cancelled</option>
+
+</select>
+
+</div>
+
+<div class="button-group">
+
+<button type="submit"
+        id="submitBtn"
+        class="add-btn"
+        name="action"
+        value="add">
+
+Add Flight
+
+</button>
+
+<button type="button"
+        class="clear-btn"
+        onclick="clearForm()">
+
+Clear
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+window.onload=function(){
+
+    loadFlights();
+
+};
+
+function loadFlights(){
+
+fetch("/AIEnhancedAirport/FlightServlet?action=list")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+let table=document.getElementById("flightTableBody");
+
+table.innerHTML="";
+
+data.forEach(function(flight){
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${flight.flightId}</td>
+
+<td>${flight.flightNumber}</td>
+
+<td>${flight.airline}</td>
+
+<td>${flight.source}</td>
+
+<td>${flight.destination}</td>
+
+<td>
+
+<button
+class="action-btn update-btn"
+onclick="editFlight(${flight.flightId})">
+
+Update
+
+</button>
+
+&nbsp;
+
+<button
+class="action-btn delete-btn"
+onclick="deleteFlight(${flight.flightId})">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+})
+
+.catch(error=>{
+
+console.log(error);
+
+});
+
+}
+
+function editFlight(id){
+
+fetch("/AIEnhancedAirport/FlightServlet?action=get&id="+id)
+
+.then(response=>response.json())
+
+.then(flight=>{
+
+document.getElementById("flightId").value=flight.flightId;
+
+document.getElementById("flightNumber").value=flight.flightNumber;
+
+document.getElementById("airline").value=flight.airline;
+
+document.getElementById("source").value=flight.source;
+
+document.getElementById("destination").value=flight.destination;
+
+document.getElementById("departureTime").value=flight.departureTime;
+
+document.getElementById("arrivalTime").value=flight.arrivalTime;
+
+document.getElementById("totalSeats").value=flight.totalSeats;
+
+document.getElementById("availableSeats").value=flight.availableSeats;
+
+document.getElementById("status").value=flight.status;
+
+document.getElementById("submitBtn").innerHTML="Update Flight";
+
+document.getElementById("submitBtn").value="update";
+
+});
+
+}
+
+function deleteFlight(id){
+
+if(confirm("Are you sure you want to delete this flight?")){
+
+fetch("/AIEnhancedAirport/FlightServlet?action=delete&id="+id)
+
+.then(response=>response.text())
+
+.then(msg=>{
+
+alert(msg);
+
+loadFlights();
+
+});
+
+}
+
+}
+
+function clearForm(){
+
+document.getElementById("flightId").value="";
+
+document.getElementById("flightNumber").value="";
+
+document.getElementById("airline").value="";
+
+document.getElementById("source").value="";
+
+document.getElementById("destination").value="";
+
+document.getElementById("departureTime").value="";
+
+document.getElementById("arrivalTime").value="";
+
+document.getElementById("totalSeats").value="";
+
+document.getElementById("availableSeats").value="";
+
+document.getElementById("status").selectedIndex=0;
+
+document.getElementById("submitBtn").innerHTML="Add Flight";
+
+document.getElementById("submitBtn").value="add";
+
+}
+document.getElementById("flightForm").reset();
+
+window.onload = function () {
+
+    // Load Flight List
+    loadFlights();
+
+    // Read URL Parameter
+    const params = new URLSearchParams(window.location.search);
+
+    const msg = params.get("msg");
+
+    if(msg=="added"){
+        alert("Flight Added Successfully.");
+    }
+
+    if(msg=="updated"){
+        alert("Flight Updated Successfully.");
+    }
+
+    if(msg=="deleted"){
+        alert("Flight Deleted Successfully.");
+    }
+
+    // Remove URL parameter
+    history.replaceState({}, document.title, window.location.pathname);
+
+};
+
+
+</script>
+
+
+
+</body>
+
+</html>

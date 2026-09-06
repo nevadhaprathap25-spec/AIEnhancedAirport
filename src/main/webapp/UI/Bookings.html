@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Booking Management</title>
+
+<link rel="stylesheet" href="../CSS/BookingCss.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+    ✈ Flight Booking Management
+
+</div>
+
+<div class="container">
+
+    <!-- ================= LEFT PANEL ================= -->
+
+    <div class="left-panel">
+
+        <h2 class="panel-title">
+            Booking List
+        </h2>
+
+        <table id="bookingTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Passenger</th>
+                    <th>Flight</th>
+                    <th>Booking Date</th>
+                    <th>Seat</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="bookingTableBody">
+
+                <!-- Booking Records -->
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- ================= RIGHT PANEL ================= -->
+
+    <div class="right-panel">
+
+        <h2 class="panel-title">
+
+            Add Booking
+
+        </h2>
+
+        <form id="bookingForm"
+              action="/AIEnhancedAirport/BookingServlet"
+              method="post">
+
+            <input
+                type="hidden"
+                id="bookingId"
+                name="bookingId">
+
+            <!-- Passenger -->
+
+            <div class="form-group">
+
+                <label>Passenger</label>
+
+                <select
+                    id="passengerId"
+                    name="passengerId"
+                    required>
+
+                    <option value="">Select Passenger</option>
+
+                </select>
+
+            </div>
+
+            <!-- Flight -->
+
+            <div class="form-group">
+
+                <label>Flight Number</label>
+
+                <select
+                    id="flightId"
+                    name="flightId"
+                    required>
+
+                    <option value="">Select Flight</option>
+
+                </select>
+
+            </div>
+
+            <!-- Booking Date -->
+
+            <div class="form-group">
+
+                <label>Booking Date</label>
+
+                <input
+                    type="date"
+                    id="bookingDate"
+                    name="bookingDate"
+                    required>
+
+            </div>
+
+            <!-- Seat Number -->
+
+            <div class="form-group">
+
+                <label>Seat Number</label>
+
+                <input
+                    type="text"
+                    id="seatNumber"
+                    name="seatNumber"
+                    placeholder="Ex : A1"
+                    required>
+
+            </div>
+
+            <!-- Booking Status -->
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select
+                    id="bookingStatus"
+                    name="bookingStatus">
+
+                    <option value="Confirmed">
+
+                        Confirmed
+
+                    </option>
+
+                    <option value="Pending">
+
+                        Pending
+
+                    </option>
+
+                    <option value="Cancelled">
+
+                        Cancelled
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Buttons -->
+
+            <div class="button-group">
+
+                <button
+                    type="submit"
+                    id="submitBtn"
+                    class="add-btn"
+                    name="action"
+                    value="add">
+
+                    Add Booking
+
+                </button>
+
+                <button
+                    type="button"
+                    class="clear-btn"
+                    onclick="clearForm()">
+
+                    Clear
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+window.onload = function () {
+
+    loadBookings();
+
+    loadPassengers();
+
+    loadFlights();
+
+};
+function loadBookings() {
+
+    fetch("/AIEnhancedAirport/BookingServlet?action=list")
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        let table = document.getElementById("bookingTableBody");
+
+        table.innerHTML = "";
+
+        data.forEach(function (booking) {
+
+            table.innerHTML += `
+
+            <tr>
+
+                <td>${booking.bookingId}</td>
+
+                <td>${booking.passengerName}</td>
+
+                <td>${booking.flightNumber}</td>
+
+                <td>${booking.bookingDate}</td>
+
+                <td>${booking.seatNumber}</td>
+
+                <td>${booking.bookingStatus}</td>
+
+                <td>
+
+                    <button
+                        class="action-btn update-btn"
+                        onclick="editBooking(${booking.bookingId})">
+
+                        Update
+
+                    </button>
+
+                    &nbsp;
+
+                    <button
+                        class="action-btn delete-btn"
+                        onclick="deleteBooking(${booking.bookingId})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        });
+
+    })
+
+    .catch(error => console.log(error));
+
+}
+
+
+
+function loadPassengers() {
+
+    fetch("/AIEnhancedAirport/BookingServlet?action=passengers")
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        let combo = document.getElementById("passengerId");
+
+        combo.innerHTML =
+        "<option value=''>Select Passenger</option>";
+
+        data.forEach(function (p) {
+
+            combo.innerHTML +=
+            "<option value='" + p.passengerId + "'>"
+            + p.passengerName +
+            "</option>";
+
+        });
+
+    });
+
+}
+
+
+
+function loadFlights() {
+
+    fetch("/AIEnhancedAirport/BookingServlet?action=flights")
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        let combo = document.getElementById("flightId");
+
+        combo.innerHTML =
+        "<option value=''>Select Flight</option>";
+
+        data.forEach(function (f) {
+
+            combo.innerHTML +=
+            "<option value='" + f.flightId + "'>"
+            + f.flightNumber +
+            "</option>";
+
+        });
+
+    });
+
+}
+
+
+
+function editBooking(id) {
+
+    fetch("/AIEnhancedAirport/BookingServlet?action=get&id=" + id)
+
+    .then(response => response.json())
+
+    .then(booking => {
+
+        document.getElementById("bookingId").value =
+        booking.bookingId;
+
+        document.getElementById("passengerId").value =
+        booking.passengerId;
+
+        document.getElementById("flightId").value =
+        booking.flightId;
+
+        document.getElementById("bookingDate").value =
+        booking.bookingDate;
+
+        document.getElementById("seatNumber").value =
+        booking.seatNumber;
+
+        document.getElementById("bookingStatus").value =
+        booking.bookingStatus;
+
+        document.getElementById("submitBtn").innerHTML =
+        "Update Booking";
+
+        document.getElementById("submitBtn").value =
+        "update";
+
+    });
+
+}
+
+
+
+function deleteBooking(id) {
+
+    if (confirm("Are you sure you want to delete this booking?")) {
+
+        fetch("/AIEnhancedAirport/BookingServlet?action=delete&id=" + id)
+
+        .then(response => response.text())
+
+        .then(msg => {
+
+            alert(msg);
+
+            clearForm();
+
+            loadBookings();
+
+        });
+
+    }
+
+}
+
+
+
+function clearForm() {
+
+    document.getElementById("bookingForm").reset();
+
+    document.getElementById("bookingId").value = "";
+
+    document.getElementById("submitBtn").innerHTML =
+    "Add Booking";
+
+    document.getElementById("submitBtn").value =
+    "add";
+
+}
+
+
+
+window.onload = function () {
+
+    loadBookings();
+
+    loadPassengers();
+
+    loadFlights();
+
+    const params = new URLSearchParams(window.location.search);
+
+    const msg = params.get("msg");
+
+    if (msg == "added") {
+
+        alert("Booking Added Successfully.");
+
+    }
+
+    if (msg == "updated") {
+
+        alert("Booking Updated Successfully.");
+
+    }
+
+    if (msg == "deleted") {
+
+        alert("Booking Deleted Successfully.");
+
+    }
+
+    history.replaceState({}, document.title, window.location.pathname);
+
+}
+
+</script>
+
+</body>
+
+</html>

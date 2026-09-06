@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="../CSS/admindashboardCSS.css">
+
+</head>
+<body>
+
+<header>
+
+    <h1>✈ AI Enhanced Airport</h1>
+
+    <div class="admin">
+        Welcome Admin
+    </div>
+
+</header>
+
+<div class="container">
+
+    <aside>
+
+        <h2>Admin Menu</h2>
+
+        <button onclick="location.href='FlightDetails.html'">✈ Flights</button>
+        <button onclick="location.href='PassengerDetails.html'">👤 Passengers</button>
+        <button onclick="location.href='Bookings.html'">📋 Bookings</button>
+        <button onclick="location.href='FlightDelayPrediction.html'">⏱ Flight Delay Prediction</button>
+        <button onclick="location.href='SmartBaggageTracking.html'">🧳 Smart Baggage Tracking</button>
+        <button onclick="location.href='AirportCrowdAnalysis.html'">👥 Airport Crowd Analysis</button>
+       
+
+    </aside>
+
+    <main>
+
+    <h2>Today's Passengers & Flight Details</h2>
+
+    <div class="table-container">
+
+        <table id="dashboardTable">
+
+            <thead>
+                <tr>
+                    <th>Passenger</th>
+                    <th>Flight No</th>
+                    <th>Airline</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Departure</th>
+                    <th>Seat</th>
+                    <th>Booking</th>
+                </tr>
+            </thead>
+
+            <tbody id="dashboardBody">
+                <!-- Loaded using JavaScript -->
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+</div>
+
+</body>
+<script>
+window.onload = function () {
+    loadDashboard();
+};
+
+function loadDashboard() {
+
+    fetch("../adminLogin?action=dashboard")
+    .then(response => response.json())
+    .then(data => {
+
+        let rows = "";
+
+        data.forEach(function(item){
+
+            rows += `
+            <tr>
+                <td>${item.passenger}</td>
+                <td>${item.flightNumber}</td>
+                <td>${item.airline}</td>
+                <td>${item.source}</td>
+                <td>${item.destination}</td>
+                <td>${item.departure}</td>
+                <td>${item.seatNo}</td>
+                <td>${item.bookingStatus}</td>
+            </tr>`;
+        });
+
+        document.getElementById("dashboardBody").innerHTML = rows;
+
+    });
+
+}
+</script>
+</html>
